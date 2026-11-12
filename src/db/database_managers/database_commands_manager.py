@@ -46,13 +46,13 @@ class DatabaseCommandsManager(DatabaseConnectionManager):
 
 		return cursor.rowcount
 
-	def _execute_select(self, table: str, fields: List[str], where_query="", values: List[Any]=[]) -> List[RowType | Dict[str, RowItemType]] | Any:
+	def _execute_select(self, table: str, fields: List[str], where_query="", extra_query="", values: List[Any]=[]) -> List[RowType | Dict[str, RowItemType]] | Any:
 		table_fields_str = ", ".join(fields)
 		select_query = f"SELECT {table_fields_str} FROM {table}"
 
 		where_query_formated = self.__format_where_query(where_query)
 
-		select_query_complete = f"{select_query} {where_query_formated}"
+		select_query_complete = f"{select_query} {where_query_formated} {extra_query}"
 
 		_, cursor = self.get_connection()
 

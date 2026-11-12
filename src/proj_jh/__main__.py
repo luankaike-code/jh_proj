@@ -4,5 +4,4 @@ from api import Api
 
 initialization_tables()
 populate_all_tables()
-#print("3")
-#Api.start()
+Api.start()
