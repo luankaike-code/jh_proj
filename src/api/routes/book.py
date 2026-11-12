@@ -26,7 +26,7 @@ def new_book():
         datbase_manager._excute_rollback()
         return jsonify({"error": f"Erro ao cadastrar livro: {str(e)}"}), 500
     finally:
-        datbase_manager.close_connection()
+        datbase_manager.close_current_connection()
 
 
 @book_blueprint.route("/<int:book_id>", methods=["GET"])
@@ -50,7 +50,7 @@ def get_book(book_id):
     except Exception as e:
         return jsonify({"error": f"Erro ao buscar livro: {str(e)}"}), 500
     finally:
-        datbase_manager.close_connection()
+        datbase_manager.close_current_connection()
 
 
 @book_blueprint.route("/search", methods=["GET"])
@@ -82,7 +82,7 @@ def search_book():
     except Exception as e:
         return jsonify({"error": f"Erro ao pesquisar livros: {str(e)}"}), 500
     finally:
-        datbase_manager.close_connection()
+        datbase_manager.close_current_connection()
 
 
 @book_blueprint.route("/login", methods=["POST"])
@@ -111,4 +111,4 @@ def user_login():
     except Exception as e:
         return jsonify({"error": f"Erro ao processar login: {str(e)}"}), 500
     finally:
-        datbase_manager.close_connection()
+        datbase_manager.close_current_connection()

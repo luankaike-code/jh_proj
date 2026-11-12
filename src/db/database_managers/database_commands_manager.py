@@ -59,18 +59,19 @@ class DatabaseCommandsManager(DatabaseConnectionManager):
 		cursor.execute(select_query_complete, values)
 		data = cursor.fetchall()
 
-		self.close_connection()
+		self.close_current_connection()
 
 		return data
 
 	def _excute_rollback(self) -> None:
 		try:
-			self.current_connection.rollback()
+			if self.current_connection is not None:
+				self.current_connection.rollback()
 			print(f"Completed rollback")
 		except Error as rollback_err:
-						print(f"Error while executing rollback: {rollback_err}")
+			print(f"Error while executing rollback: {rollback_err}")
 		
-		self.close_connection()
+		self.close_current_connection()
 	
 	def _execute_commit(self) -> None:
 			try:
@@ -80,4 +81,4 @@ class DatabaseCommandsManager(DatabaseConnectionManager):
 
 				self._excute_rollback()
 
-			self.close_connection()
+			self.close_current_connection()

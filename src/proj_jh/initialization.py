@@ -83,8 +83,9 @@ def initialization_tables():
 
         for table_name, fields in TABLES_SCHEMA.items():
             database_commands_manager._create_if_not_exist_table(table_name, fields)
+            database_commands_manager._execute_commit()
+            database_commands_manager.close_current_connection()
             print(f"-> Tabela '{table_name}' verificada/criada.")
-            database_commands_manager.close_connection()
 
         print("\nTodas as tabelas foram verificadas e estruturadas com sucesso!")
 
