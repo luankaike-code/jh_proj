@@ -4,10 +4,11 @@ from db import DatabaseManager, Env
 TABLES_SCHEMA = {
     "users": [
         "id INT AUTO_INCREMENT PRIMARY KEY",
+        "password VARCHAR(255) NOT NULL",
         "nome VARCHAR(255) NOT NULL",
         "email VARCHAR(255) UNIQUE NOT NULL",
         "tel VARCHAR(20) UNIQUE NOT NULL",
-        "second_tel VARCHAR(20)"
+        "second_tel VARCHAR(20)",
     ],
     "students": [
         "ra VARCHAR(50) PRIMARY KEY",
@@ -22,7 +23,7 @@ TABLES_SCHEMA = {
     ],
     "series": [
         "id INT AUTO_INCREMENT PRIMARY KEY",
-        "name VARCHAR(255) NOT NULL",
+        "name VARCHAR(255) NOT NULL UNIQUE",
         "description VARCHAR(255) NOT NULL"
     ],
     "books": [

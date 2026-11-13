@@ -51,7 +51,6 @@ def get_book(book_id):
 		finally:
 				datbase_manager.close_current_connection()
 
-
 @book_blueprint.route("/search", methods=["GET"])
 def search_book():
 		try:
@@ -82,7 +81,6 @@ def search_book():
 				return jsonify({"error": f"Erro ao pesquisar livros: {str(e)}"}), 500
 		finally:
 				datbase_manager.close_current_connection()
-
 
 @book_blueprint.route("/login", methods=["POST"])
 def user_login():
