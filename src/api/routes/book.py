@@ -82,34 +82,6 @@ def search_book():
 		finally:
 				datbase_manager.close_current_connection()
 
-@book_blueprint.route("/login", methods=["POST"])
-def user_login():
-		try:
-				data = request.get_json()
-				email = data.get("email")
-				
-				if not email:
-						return jsonify({"error": "O campo email é obrigatório para o login"}), 400
-						
-				fields = ["id", "nome", "email"]
-				result = datbase_manager._execute_select(
-						table="users",
-						fields=fields,
-						where_query="WHERE email = %s",
-						values=[email]
-				)
-				
-				if not result:
-						return jsonify({"error": "Usuário não encontrado"}), 401
-						
-				user_data = dict(fields, result[0])
-				return jsonify({"message": "Login bem-sucedido!", "user": user_data}), 200
-				
-		except Exception as e:
-				return jsonify({"error": f"Erro ao processar login: {str(e)}"}), 500
-		finally:
-				datbase_manager.close_current_connection()
-
 @book_blueprint.route("/page/<int:page>", methods=["GET"])
 def get_books_by_page(page):
     try:
